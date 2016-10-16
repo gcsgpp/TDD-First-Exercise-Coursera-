@@ -34,27 +34,16 @@ public class Converter {
 	}
 	
 	private void separateWords(String letter, String nextLetter){
-		if(letterIsLower(letter) && letterIsUpper(nextLetter)){
+		if(letterIsLower(letter) && (letterIsUpper(nextLetter) || letterIsNumber(nextLetter))){
 			addLastWord(letter.toLowerCase());
 			addNewWord("");
-		}else if(letterIsUpper(letter) && letterIsUpper(nextLetter)){
+		}else if((letterIsUpper(letter) && letterIsUpper(nextLetter)) || 
+				 (letterIsNumber(letter) && letterIsNumber(nextLetter))){
 			addLastWord(letter);
 		}else if(letterIsUpper(letter) && letterIsLower(nextLetter)){
 			addNewWord(letter.toLowerCase());
-		}else{
+		}else
 			addLastWord(letter);
-		}
-		
-		/*if((letter.matches("[A-Z]") && nextLetterIsLower(nextLetter)) ||
-		   (letter.matches("[0-9]") && nextLetterIsNumber(nextLetter)) ||
-		   (letter.matches("[0-9])" && nextLetterIsLower(nextLetter)))
-			addNewWord(letter);
-		else if(letter.matches("[a-z]") && nextLetterIsUpper(nextLetter)){
-			addLastWord(letter);
-			addNewWord("");
-		}else if()
-			addLastWord(letter);
-			*/
 	}
 
 	private boolean letterIsLower(String letter) {
@@ -76,8 +65,8 @@ public class Converter {
 		return letter.matches("[A-Z]");
 	}
 	
-	private boolean nextLetterIsNumber(String letter){
-		return false;
+	private boolean letterIsNumber(String letter){
+		return letter.matches("[0-9]");
 	}
 	
 	private boolean checkInconsistency(String wholeWord){

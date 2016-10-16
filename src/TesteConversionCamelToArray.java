@@ -16,9 +16,10 @@ public class TesteConversionCamelToArray {
 	@Test
 	public void hasSpecialCharacters() {
 		Converter c = new Converter();
-		Boolean result = c.hasSpecialCharacters("10!Primeiros");
+		Boolean result = c.hasSpecialCharacters("nome#Composto");
 		assertTrue(result);
 	}
+	
 	
 	@Test
 	public void convertSimpleWord() {
@@ -68,5 +69,25 @@ public class TesteConversionCamelToArray {
 		assertEquals("CPF", l.get(1));
 	}
 	
+	@Test
+	public void converWordsWithAcronymInTheMiddle(){
+		Converter c = new Converter();
+		List<String> l = c.converterCamelCase("numeroCPFContribuinte");
+		assertEquals(3, l.size());
+		assertEquals("numero", l.get(0));
+		assertEquals("CPF", l.get(1));
+		assertEquals("contribuinte", l.get(2));
+	}
+	
+	@Test
+	public void convertWordsWithNumberInTheMiddle(){
+		Converter c = new Converter();
+		List<String> l = c.converterCamelCase("recupera10Primeiros");
+		//assertEquals("", l.toString());
+		assertEquals(3, l.size());
+		assertEquals("recupera", l.get(0));
+		assertEquals("10", l.get(1));
+		assertEquals("primeiros", l.get(2));
+	}
 
 }
